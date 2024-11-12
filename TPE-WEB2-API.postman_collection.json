@@ -1,0 +1,160 @@
+{
+	"info": {
+		"_postman_id": "e223e853-79e9-4432-b857-26a76283e54f",
+		"name": "TPE-WEB2-API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "17467199"
+	},
+	"item": [
+		{
+			"name": "libros",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost/TPE-WEB2-API/api/libros",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"TPE-WEB2-API",
+						"api",
+						"libros"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "autores",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost/TPE-WEB2-API/api/autores",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"TPE-WEB2-API",
+						"api",
+						"autores"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "libros by atr",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost/TPE-WEB2-API/api/librosByAtr",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"TPE-WEB2-API",
+						"api",
+						"librosByAtr"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "libros paginados",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost/TPE-WEB2-API/api/librosPaginado?page=2&limit=2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"TPE-WEB2-API",
+						"api",
+						"librosPaginado"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "2"
+						},
+						{
+							"key": "limit",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "modificar libro",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nombre_libro\": \"La voz ausente\",\r\n  \"tipo\": \"Psicologia\",\r\n  \"sinopsis\": \" El psicoanalista Pablo Rouviot se encarga de investigar la muerte de su hermano, que parece ser un suicidio, pero que en realidad es parte de una serie de asesinatos. Para resolver el caso, Rouviot cuenta con la ayuda de Cecilia Bermúdez, una oficial de policía inexperta.\",\r\n  \"anio\": 2018\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/TPE-WEB2-API/api/libros/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"TPE-WEB2-API",
+						"api",
+						"libros",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "modificar autor",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nombre_autor\": \"Gabriel Rolon\",\r\n  \"nacimiento_autor\": \"1961-11-1\",\r\n  \"nacionalidad_autor\": \"Argentino\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/TPE-WEB2-API/api/autores/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"TPE-WEB2-API",
+						"api",
+						"autores",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
