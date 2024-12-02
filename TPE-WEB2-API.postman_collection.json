@@ -48,11 +48,23 @@
 		},
 		{
 			"name": "libros by atr",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
 			"request": {
 				"method": "GET",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
-					"raw": "http://localhost/TPE-WEB2-API/api/librosByAtr",
+					"raw": "http://localhost/TPE-WEB2-API/api/librosByAtr?campo=nombre_libro&orden=ASC",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -61,6 +73,16 @@
 						"TPE-WEB2-API",
 						"api",
 						"librosByAtr"
+					],
+					"query": [
+						{
+							"key": "campo",
+							"value": "nombre_libro"
+						},
+						{
+							"key": "orden",
+							"value": "ASC"
+						}
 					]
 				}
 			},
@@ -72,7 +94,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost/TPE-WEB2-API/api/librosPaginado?page=2&limit=2",
+					"raw": "http://localhost/TPE-WEB2-API/api/librosPaginado?page=1&limit=5",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -85,11 +107,11 @@
 					"query": [
 						{
 							"key": "page",
-							"value": "2"
+							"value": "1"
 						},
 						{
 							"key": "limit",
-							"value": "2"
+							"value": "5"
 						}
 					]
 				}
@@ -103,7 +125,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"nombre_libro\": \"La voz ausente\",\r\n  \"tipo\": \"Psicologia\",\r\n  \"sinopsis\": \" El psicoanalista Pablo Rouviot se encarga de investigar la muerte de su hermano, que parece ser un suicidio, pero que en realidad es parte de una serie de asesinatos. Para resolver el caso, Rouviot cuenta con la ayuda de Cecilia Bermúdez, una oficial de policía inexperta.\",\r\n  \"anio\": 2018\r\n}",
+					"raw": "{\r\n  \"nombre_libro\": \"La voz\",\r\n  \"tipo\": \"Psicologia\",\r\n  \"sinopsis\": \" El psicoanalista Pablo Rouviot se encarga de investigar la muerte de su hermano, que parece ser un suicidio, pero que en realidad es parte de una serie de asesinatos. Para resolver el caso, Rouviot cuenta con la ayuda de Cecilia Bermúdez, una oficial de policía inexperta.\",\r\n  \"anio\": 2021,\r\n  \"id_autor\": 3\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"

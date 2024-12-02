@@ -13,7 +13,7 @@ $router->addRoute('autores', 'GET', 'PublicApiController', 'getAllAuthors');
 //LIBROS
 $router->addRoute('libros', 'GET', 'PublicApiController', 'getAllBooks');
 
-$router ->addRoute ('librosByAtr', 'GET', 'PublicApiController', 'getAllByAtributo'); //trae los libros por el 'tipo' de libro
+$router ->addRoute ('librosByAtr', 'GET', 'PublicApiController', 'getAllByAtributo'); 
 
 
 //paginar

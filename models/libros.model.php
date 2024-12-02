@@ -16,35 +16,42 @@ class LibrosModel {
     }
 
     public function getAll(){
-        $query=$this->db->prepare("SELECT * FROM libros ORDER BY DESC");
+        $query=$this->db->prepare("SELECT * FROM libros");
         $query->execute();
         $libros= $query->fetchAll(PDO::FETCH_OBJ);
         
         return $libros;
     }
 
-    public function getBooksAndAuthors(){
-        $query=$this->db->prepare("SELECT libros.nombre_libro AS NombreLibro, autores.nombre_autor AS Autor, libros.id_libro  FROM libros JOIN autores ON libros.id_autor=autores.id_autor ORDER BY autores.nombre_autor ASC");      
-        $query->execute();
-        $libros= $query->fetchAll(PDO::FETCH_OBJ);
-        
-        return $libros;
-    }
-
-    public function getAuthorBook(){
-        $query= $this->db->prepare("SELECT autores.id_autor, libros.nombre_libro FROM autores JOIN libros ON libros.id_autor=autores.id_autor ORDER BY libros.nombre_libro ASC");
+    public function getAllAuthorBook(){
+        $query= $this->db->prepare("SELECT * FROM autores JOIN libros ON libros.id_autor=autores.id_autor ORDER BY libros.nombre_libro ASC");
         $query->execute();
         $libro= $query->fetchAll(PDO::FETCH_OBJ);
 
         return $libro;
     }
 
-    public function getAllByAtributo() {
-        $query = $this->db->prepare("SELECT * FROM libros ORDER BY tipo DESC");
+    public function getAllByAtributo($campo = 'id_libro', $orden = 'ASC') {
+        // Lista de columnas permitidas
+        $columnasPermitidas = ['id_libro', 'nombre_libro', 'tipo', 'sinopsis', 'anio', 'id_autor'];
+    
+        // Validación del campo
+        if (!in_array($campo, $columnasPermitidas)) {
+            $campo = 'id_libro'; // Por defecto
+        }
+    
+        // Validación del orden
+        $orden = strtoupper($orden);
+        if ($orden !== 'ASC' && $orden !== 'DESC') {
+            $orden = 'ASC'; // Por defecto
+        }
+    
+        // Construir y ejecutar la consulta
+        $query = $this->db->prepare("SELECT * FROM libros ORDER BY $campo $orden");
         $query->execute();
-        $libros = $query->fetchAll(PDO::FETCH_OBJ);
-        return $libros;
+        return $query->fetchAll(PDO::FETCH_OBJ);
     }
+    
 
     public function getLibroById($id_libro) {
         $query = $this->db->prepare("SELECT * FROM libros WHERE id_libro = ?");
@@ -54,11 +61,10 @@ class LibrosModel {
     }
          
 
-    public function updateBook($id_libro, $nombre_libro, $tipo, $sinopsis, $anio){
-        $query = $this->db->prepare("UPDATE libros SET  nombre_libro = ?, tipo = ?, sinopsis = ?, anio = ? WHERE id_libro = ?");
-        $query->execute([$nombre_libro, $tipo, $sinopsis, $anio, $id_libro]);
-    }   
-    
+    public function updateBook($id_libro, $nombre_libro, $tipo, $sinopsis, $anio, $id_autor) {
+        $query = $this->db->prepare("UPDATE libros SET nombre_libro = ?, tipo = ?, sinopsis = ?, anio = ?, id_autor = ? WHERE id_libro = ?");
+        $query->execute([$nombre_libro, $tipo, $sinopsis, $anio, $id_autor, $id_libro]);
+    }    
 
     public function getAllPaginado($page = 1, $limit = 10) {
         $offset = ($page - 1) * $limit;

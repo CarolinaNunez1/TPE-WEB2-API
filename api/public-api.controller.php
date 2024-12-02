@@ -34,7 +34,7 @@ class PublicApiController{
     }
 
     public function getAllBooks($params = []){
-        $libros = $this->modelLibro->getBooksAndAuthors();
+        $libros = $this->modelLibro->getAll();
         if ($libros){
             $this->view->response($libros, 200);
         }else{
@@ -42,10 +42,25 @@ class PublicApiController{
         }
     }
     
-    public function getAllByAtributo($params) {
-        $libros = $this->modelLibro->getAllByAtributo();
-        $this->view->response($libros, 200);
+    public function getAllByAtributo($params = null) {
+        // Leer parámetros de la consulta (opcional)
+        $campo = $_GET['campo'] ?? 'id_libro';
+        $orden = $_GET['orden'] ?? 'ASC';
+    
+        // Obtener los libros desde el modelo
+        try {
+            $libros = $this->modelLibro->getAllByAtributo($campo, $orden);
+    
+            if (!empty($libros)) {
+                $this->view->response($libros, 200);
+            } else {
+                $this->view->response("No se encontraron libros.", 404);
+            }
+        } catch (Exception $e) {
+            $this->view->response("Error interno del servidor: " . $e->getMessage(), 500);
+        }
     }
+    
     
     public function getLibroById($params) {
         $idLibro = $params[':ID'];
@@ -56,7 +71,7 @@ class PublicApiController{
         } else {
             $this->view->response("Libro no encontrado", 404); // Devuelve 404 si no se encuentra el libro
         }
-    }    
+    }   
 
     public function getAutorById($params) {
         $idAutor = $params[':ID'];
@@ -86,7 +101,8 @@ class PublicApiController{
             !isset($data['nombre_libro']) ||
             !isset($data['tipo']) ||
             !isset($data['sinopsis']) ||
-            !isset($data['anio'])
+            !isset($data['anio'])||
+            !isset($data['id_autor'])
         ) {
             $this->view->response("Campos incompletos", 400);
             return;
@@ -96,11 +112,12 @@ class PublicApiController{
         $tipo = $data['tipo'];
         $sinopsis = $data['sinopsis'];
         $anio = $data['anio'];
+        $id_autor = $data['id_autor'];
         
         $libro = $this->modelLibro->getLibroById($id_libro);
         
         if ($libro) {
-            $this->modelLibro->updateBook($id_libro, $nombre_libro, $tipo, $sinopsis, $anio);
+            $this->modelLibro->updateBook($id_libro, $nombre_libro, $tipo, $sinopsis, $anio, $id_autor);
             $this->view->response("El libro fue modificado correctamente", 200);
         } else {
             $this->view->response("El libro con el id=$id_libro no existe", 404);

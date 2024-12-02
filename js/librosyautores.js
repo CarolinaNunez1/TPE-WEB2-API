@@ -10,24 +10,6 @@ let app = new Vue({
         admin: id
     },
     methods: {
-        // Función para cargar libros y autores al iniciar la página
-        getBooksAndAuthors: function() {
-            // Obtener los libros
-            fetch('api/libros')
-                .then(response => response.json())
-                .then(libros => {
-                    this.libros = libros;
-                })
-                .catch(error => console.log(error));
-
-            // Obtener los autores
-            fetch('api/autores')
-                .then(response => response.json())
-                .then(autores => {
-                    this.autores = autores;
-                })
-                .catch(error => console.log(error));
-        },
         
         // Función para actualizar el libro y el autor
         updateBookAndAuthor: function(bookId, authorId, newBookName, newAuthorName) {
